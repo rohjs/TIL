@@ -1,5 +1,5 @@
 # VueJS
-
+I am learning VueJS via [Udemy Course](https://www.udemy.com/vuejs-2-the-complete-guide/learn/v4/overview). And I am going to write some of the concepts I learned day by day.
 ## Index.  
 1. [Kickstart VueJS](## 1. Kickstart VueJS)
 
@@ -46,3 +46,33 @@ The basic idea of VueJS is like this:
 3. Vue instance does all the magical works and outputs *an HTML template* that renders document object model that we could see via browsers.
 
 So far so easy, right? Let's move on to the next level.
+
+
+
+## 2. Basic structure
+
+* el: _String,_ Tells Vue what element in the HTML file will be affected to the Vue instance that I am creating.
+* data: _Object,_ Data that is used in HTML template || inside the Vue instance
+* methods: _Object,_ Methods that is used in HTML template || inside the Vue instance
+
+
+
+## 3. Accessing data in Vue instance
+
+Accessing data is said to be extremely important and also difficult (as far as I've heard of). But VueJS makes it super intuitive, super simple and super easy.
+
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    title: 'Hello VueJS',
+    name: 'Jiseung Roh'
+  },
+  methods: {
+    sayHello: function() {
+      return this.name;
+    }
+  }
+});
+```
+
