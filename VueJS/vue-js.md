@@ -4,8 +4,6 @@
 1. [Kickstart VueJS](## 1. Kickstart VueJS)
 
 
-***
-
 
 ## 1. Kickstart VueJS
 
@@ -17,9 +15,9 @@
   <script src="app.js"></script>
 </head>
 <body>
-  <div id="app" v-on:input="changeTitle">
-    <input type="text">
+  <div id="app">
     <p>{{ title }}</p>
+    <p>{{ sayHello() }}</p>
   </div>
 </body>
 ```
@@ -33,8 +31,8 @@ new Vue({
     title: 'Hello VueJS'
   },
   methods: {
-    changeTitle: function(event) {
-      this.title = event.target.value;
+    sayHello: function() {
+      return 'Hello!';
     }
   }
 });
@@ -45,5 +43,6 @@ The JavaScript code in `app.js` will then create a Vue instance. There is no nee
 The basic idea of VueJS is like this:  
 1. You create a HTML file.  
 2. A Vue instance is then created based on the HTML file you made. (It is not parsed in DOM yet.)  
-3. The instance plays a role as a layer between HTML document file and the DOM.  
-Vue instance does all the magical works and outputs a rendered document object model that we could see via browsers.
+3. Vue instance does all the magical works and outputs *an HTML template* that renders document object model that we could see via browsers.
+
+So far so easy, right? Let's move on to the next level.
