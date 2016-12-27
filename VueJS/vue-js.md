@@ -32,7 +32,9 @@ new Vue({
 });
 ```
 The JavaScript code in `app.js` will then create a Vue instance. There is no need to store the instance in a variable or whatsoever. You just need to make a new Vue instance by "new Vue()".  
+
 The basic idea of VueJS is like this:  
-1. You create a HTML file.
-2. A Vue instance is then created based on the HTML file you made. (It is not parsed in DOM yet.)
-3. The instance plays a role as a layer between HTML document file and the DOM. Vue instance does all the magical works and outputs a rendered document object model that we could see via browsers.
+1. You create a HTML file.  
+2. A Vue instance is then created based on the HTML file you made. (It is not parsed in DOM yet.)  
+3. The instance plays a role as a layer between HTML document file and the DOM.  
+Vue instance does all the magical works and outputs a rendered document object model that we could see via browsers.
