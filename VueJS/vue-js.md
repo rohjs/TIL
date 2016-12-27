@@ -61,6 +61,19 @@ So far so easy, right? Let's move on to the next level.
 
 Accessing data is said to be extremely important and also difficult (as far as I've heard of). But VueJS makes it super intuitive, super simple and super easy.
 
+#### Example
+```html
+<head>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="app.js"></script>
+</head>
+<body>
+  <div id="app">
+    <p>{{ title }}</p>
+    <p>{{ sayHello() }}</p>
+  </div>
+</body>
+```
 ```javascript
 new Vue({
   el: '#app',
@@ -75,4 +88,12 @@ new Vue({
   }
 });
 ```
+
+#### Analysis
+1. You don't need to use extra keywords to access to the data/methods object in the instance  
+VueJS makes it easy to retrieve and change the value in data and methods object. The instructor tells that VueJS _proxies_ something blah blah blah but since I don't know what _[proxy](http://www.dofactory.com/javascript/proxy-design-pattern)_ means exactly, I decided to move on for now.  
+Anyways in order to retrieve a data from data property in HTML, you need to use _string interpolation_ like this: `{{ name_of_the_property }}`. You cannot use interpolation in HTML attributes and I will cover this later.  
+2. You can access to the data property by using `this` in the methods you are defining.
+You can freely get the data/methods properties in common situation. However, when you try to access them in the middle of writing a method, you have to put `this` in front of the data that you want to call. `this`, in this case, refers to `data` property
+
 
