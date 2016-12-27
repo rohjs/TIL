@@ -1,15 +1,15 @@
 # VueJS
 
-### Index.  
-1. [Kickstart VueJS](### Kickstart VueJS)
+## Index.  
+1. [Kickstart VueJS](## 1. Kickstart VueJS)
 
 
 ***
 
 
-### Kickstart VueJS
+## 1. Kickstart VueJS
 
-A Basic Example Code
+#### Basic Example Code
 
 ```html
 <head>
@@ -25,6 +25,7 @@ A Basic Example Code
 ```
 The above code is HTML template of a Vue instance that I am going to create below.
 
+
 ```javascript
 new Vue({
   el: "#app",
@@ -39,6 +40,7 @@ new Vue({
 });
 ```
 The JavaScript code in `app.js` will then create a Vue instance. There is no need to store the instance in a variable or whatsoever. You just need to make a new Vue instance by "new Vue()".  
+
 
 The basic idea of VueJS is like this:  
 1. You create a HTML file.  
