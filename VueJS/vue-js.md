@@ -91,7 +91,7 @@ So as you can see in the above example, `sayHello()` method is accessing the `da
 
 
 ## 4. Understanding directives
-Directives are like instructions. We tell VueJS to do certain jobs with directives. VueJS provides a few built-in directives which cover a lot of features, but we can also make our own directives.
+Directives are like *instructions*. We tell VueJS to do certain jobs with directives. VueJS provides a few built-in directives which cover a lot of features, but we can also make our own directives.
 
 ### 1. v-html
 `v-html` is a directive that enables Vue instance to render raw HTML code. When we retrieve data from the instance, we normally use `{{ String Interpolation }}`. However, when rendering this, VueJS escapes HTML element which means they render data in text format.
@@ -122,7 +122,26 @@ Therefore if you want to output a raw html code, you should use `v-html` directi
 Then the anchor element will be located inside the `<p>` element.
 
 ### 2. v-bind
-`v-bind` tells VueJS to bind something—arguments passed by the directive— with data stored in Vue instance. As you cannot render a raw HTML code in the interpolation, it is also impossible to use the expression code to pass data to HTML attributes.
+
+`v-bind` tells VueJS to bind something—arguments passed by the directive— with data stored in Vue instance. As you cannot render a raw HTML code in the interpolation, it is also impossible to use the expression code to pass data to HTML attributes.  
+In order to bind data where we can't use interpolation, you should use `v-bind` directive.
+
+#### Example
+
+```html
+<div id="app">
+  <p>My portfolio site: <a v-bind:href="link"></a></p>
+</div>
+```
+
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    link: 'https://rohjs.github.io/portfolio'
+  }
+});
+```
 
 
 
