@@ -123,8 +123,10 @@ Then the anchor element will be located inside the `<p>` element.
 
 ### 2. v-bind
 
-`v-bind` tells VueJS to bind something—arguments passed by the directive— with data stored in Vue instance. As you cannot render a raw HTML code in the interpolation, it is also impossible to use the expression code to pass data to HTML attributes.
-![Disassemble v-bind](https://cloud.githubusercontent.com/assets/19285811/21534550/3cff9580-cdac-11e6-9cbd-6308f206828c.jpg)
+`v-bind` tells VueJS to bind something—arguments passed by the directive— with data stored in Vue instance. As you cannot render a raw HTML code in the interpolation, it is also impossible to use the expression code to pass data to HTML attributes.  
+
+![v-bind](https://cloud.githubusercontent.com/assets/19285811/21534550/3cff9580-cdac-11e6-9cbd-6308f206828c.jpg)
+
 In order to bind data where we can't use interpolation, you should use `v-bind` directive. After `v-bind:`, you need to give the name of HTML attributes as an _argument_ and the _data_.
 
 #### Example
@@ -144,6 +146,83 @@ new Vue({
 });
 ```
 
+### 3. v-on
+
+![v-on](https://cloud.githubusercontent.com/assets/19285811/21540184/ec274eec-cdf0-11e6-9e3b-c6014a3223e3.jpg)  
+
+`v-on` detects events and bind event handlers to certain events. You can use _every DOM events_ as an argument for `v-on` directive and pass event handler. The event handler function should be stored in Vue instance(_methods).
+
+_* The only problem is that I don't know the DOM events well. [This](https://www.bitovi.com/blog/a-crash-course-in-how-dom-events-work) is a useful link to understand DOM events. Next time I should add TIL contents about it too.
+
+#### Example 1: Increase counter number
+
+```html
+<div id="app">
+  <button v-on:click="increaseCounter">Increase Counter</button>
+  <p>{{ counter }}</p>
+</div>
+```
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    counter: 0
+  },
+  methods: {
+    increaseCounter: function() {
+      this.counter++; 
+    }
+  }
+});
+```
+
+#### Example 2: Dynamically load input data
+
+```html
+<div id="app" v-on:input="changeTitle">
+  <input type="text">
+  <h1>{{ title }}</h1>
+</div>
+```
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    title: 'Hello VueJS'
+  },
+  methods: {
+    changeTitle: function(event) {
+      this.title = event.target.value;
+    }
+  }
+});
+```
+In the second example, when you look at the `changeTitle` method, you can see a `event` parameter. When DOM event occurs, DOM automatically creates an *Event Object* and it can be passed to the event handlers as an argument. This, therefore, is also available in VueJS as it is a default behavior of DOM API. In the _event object_, data related to the very event are stored and you can access it inside an event handler.
+
+#### Example 3: Dynamically load the position of the event
+
+```html
+<div id="app">
+  <p v-on:mousemove="updateCoordinates">Coordinate: {{ x }}, {{ y }}</p>
+</div>
+```
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    x: 0,
+    y: 0
+    // Setting an initial value of x and y properties
+  },
+  methods: {
+    updateCoordinates: function(event) {
+      this.x = event.clientX;
+      this.y = event.clientY;
+      // Vue instance automatically re-renders the page when properties of data change
+    }
+  }
+});
+```
 
 
 
