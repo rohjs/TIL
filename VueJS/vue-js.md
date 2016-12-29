@@ -152,7 +152,7 @@ new Vue({
 
 `v-on` detects events and bind event handlers to certain events. You can use _every DOM events_ as an argument for `v-on` directive and pass event handler. The event handler function should be stored in Vue instance(_methods).
 
-_* The only problem is that I don't know the DOM events well. [This](https://www.bitovi.com/blog/a-crash-course-in-how-dom-events-work) is a useful link to understand DOM events. Next time I should add TIL contents about it too.
+_* The only problem is that I don't know the DOM events well. [This](https://www.bitovi.com/blog/a-crash-course-in-how-dom-events-work) is a useful link to understand DOM events. Next time I should add TIL contents about it too._
 
 #### Example 1: Increase counter number
 
