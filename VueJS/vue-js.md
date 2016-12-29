@@ -108,12 +108,18 @@ Directives are like instructions. We tell VueJS to do certain jobs with directiv
 new Vue({
   el: '#app',
   data: {
-    link: '<a href="http://rohjs.github.io/portfolio">Jiseung's Portfolio</a>'
+    link: "<a href="http://rohjs.github.io/portfolio">Jiseung's Portfolio</a>"
   }
 });
 ```
 When we execute the above code, the brower will render `<a href="http://rohjs.github.io/portfolio">Jiseung's Portfolio</a>` as a plain text. This evidently shows how VueJS deals with the data by default.  
 Therefore if you want to output a raw html code, you should use `v-html` directive instead.
+```html
+<div id="app">
+  <p v-html:'link'></p>
+</div>
+```
+Then the anchor element will be located inside the `<p>` element.
 
 
 
