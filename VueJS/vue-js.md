@@ -4,7 +4,7 @@ I am learning VueJS via [Udemy Course](https://www.udemy.com/vuejs-2-the-complet
 1. [Kickstart VueJS](## 1. Kickstart VueJS)
 2. [Basic structure](## 2. Basic structure)
 3. [Accessing data in Vue instance](## 3. Accessing data in Vue instance)
-4.
+4. [Understanding directives](## 4. Understanding directives)
 
 ## 1. Kickstart VueJS
 
