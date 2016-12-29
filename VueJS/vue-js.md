@@ -123,8 +123,9 @@ Then the anchor element will be located inside the `<p>` element.
 
 ### 2. v-bind
 
-`v-bind` tells VueJS to bind something—arguments passed by the directive— with data stored in Vue instance. As you cannot render a raw HTML code in the interpolation, it is also impossible to use the expression code to pass data to HTML attributes.  
-In order to bind data where we can't use interpolation, you should use `v-bind` directive.
+`v-bind` tells VueJS to bind something—arguments passed by the directive— with data stored in Vue instance. As you cannot render a raw HTML code in the interpolation, it is also impossible to use the expression code to pass data to HTML attributes.
+![Disassemble v-bind](https://cloud.githubusercontent.com/assets/19285811/21534550/3cff9580-cdac-11e6-9cbd-6308f206828c.jpg)
+In order to bind data where we can't use interpolation, you should use `v-bind` directive. After `v-bind:`, you need to give the name of HTML attributes as an _argument_ and the _data_.
 
 #### Example
 
