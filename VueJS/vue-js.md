@@ -116,10 +116,14 @@ When we execute the above code, the brower will render `<a href="http://rohjs.gi
 Therefore if you want to output a raw html code, you should use `v-html` directive instead.
 ```html
 <div id="app">
-  <p v-html:'link'></p>
+  <p v-html:"link"></p>
 </div>
 ```
 Then the anchor element will be located inside the `<p>` element.
+
+### 2. v-bind
+`v-bind` tells VueJS to bind something—arguments passed by the directive— with data stored in Vue instance. As you cannot render a raw HTML code in the interpolation, it is also impossible to use the expression code to pass data to HTML attributes.
+
 
 
 
