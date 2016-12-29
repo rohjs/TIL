@@ -108,7 +108,7 @@ Directives are like instructions. We tell VueJS to do certain jobs with directiv
 new Vue({
   el: '#app',
   data: {
-    link: "<a href="http://rohjs.github.io/portfolio">Jiseung's Portfolio</a>"
+    link: "<a href='http://rohjs.github.io/portfolio'>Jiseung's Portfolio</a>"
   }
 });
 ```
