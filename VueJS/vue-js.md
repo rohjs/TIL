@@ -224,6 +224,23 @@ new Vue({
 });
 ```
 
+#### Event Modifiers
+
+VueJS provides _*modifiers*_, too. By using modifiers, you can do `stopPropagation()` and `preventDefault()`.
+
+```html
+<div id="app">
+  <p v-on:mousemove="update">Coordinates: {{ x }}, {{ y }} <span v-on:mousemove.stop="update">DEAD ZONE</span></p>
+</div>
+```
+
+* `.stop`
+* `.prevent`
+* `.capture`
+* `.self`
+* `.once`
+
+
 
 
 
