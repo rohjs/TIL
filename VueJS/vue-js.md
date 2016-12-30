@@ -230,7 +230,9 @@ VueJS provides _*modifiers*_, too. By using modifiers, you can do `stopPropagati
 
 ```html
 <div id="app">
-  <p v-on:mousemove="update">Coordinates: {{ x }}, {{ y }} <span v-on:mousemove.stop="update">DEAD ZONE</span></p>
+  <p v-on:mousemove="update">Coordinates: {{ x }}, {{ y }}
+    <span v-on:mousemove.stop="update">DEAD ZONE</span>
+  </p>
 </div>
 ```
 
