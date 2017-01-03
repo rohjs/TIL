@@ -278,3 +278,12 @@ You can use _key modifiers_ for key-related events. Key modifiers allows you to 
 
 `alertMe` function will be fired when `enter` and `space` keys are used.
 
+* `enter`
+* `tab`
+* `esc`
+* `delete` || `backspace`
+* `up`
+* `down`
+* `left`
+* `right`
+
