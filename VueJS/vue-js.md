@@ -244,16 +244,16 @@ VueJS provides _*modifiers*_, too. By using modifiers, you can do `stopPropagati
 
 You can also pass more than two arguments to the event handler. If there is no argument given to the event handler, VueJS automatically pass event object by default. But if you want to pass DOM event object as one of the arguments, you should pass `$event` for the event object.
 
-#### Example
+##### Example
 
-````html
+```html
 <div id="app">
   <button v-on:click="increaseCounter(2, $event)">Click</button>
   <p>{{ counter }}</p>
 </div>
-````
+```
 
-````javascript
+```javascript
 new Vue({
   el: '#app',
   data: { 
@@ -265,10 +265,16 @@ new Vue({
     }
   }
 });
-````
+```
 
+#### Key Modifiers
 
+You can use _key modifiers_ for key-related events. Key modifiers allows you to find what keys were used during the event. You can _chain_ multiple key modifiers, too.
 
+##### Example
+```html
+<input type="text" v-on:keyup.enter.space="alertMe">
+```
 
-
+`alertMe` function will be fired when `enter` and `space` keys are used.
 
