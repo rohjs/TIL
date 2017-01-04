@@ -5,6 +5,7 @@ I am learning VueJS via [Udemy Course](https://www.udemy.com/vuejs-2-the-complet
 2. [Basic structure](## 2. Basic structure)
 3. [Accessing data in Vue instance](## 3. Accessing data in Vue instance)
 4. [Understanding directives](## 4. Understanding directives)
+5. [Other properties](## 5. Other properties)
 
 ## 1. Kickstart VueJS
 
@@ -54,7 +55,9 @@ So far so easy, right? Let's move on to the next level.
 
 * el: _String,_ Tells Vue what element in the HTML file will be affected to the Vue instance that I am creating.
 * data: _Object,_ Data that is used in HTML template || inside the Vue instance
+* computed: _Object,_ Dependent properties, only executed when it is relevant
 * methods: _Object,_ Methods that is used in HTML template || inside the Vue instance
+
 
 
 
@@ -310,3 +313,84 @@ new Vue({
 ```
 
 When we execute the above code, at fist, a string data of title—Default— will show. The value changes when you write any thing in the `<p>` element. Not only will `v-model` enable to change the value, but also it updates the property value of data object too.
+
+
+## 5. Others
+
+### 1. Computed property
+
+Computed property is _dependent property._ It is a property possessing functions used in Vue instance, just like methods, but works completely different from methods. When you use functions definded as a property of computed property, the functions are only executed when it is relevant to them. Let's look at the examples below.
+
+#### Example 1. How _methods_ work
+
+```html
+<div id="app">
+  <button v-on:click="counter++">Increase</button>
+  <button v-on:click="secCounter++">Increment</button>
+  <p>Counter: {{ counter }}</p>
+  <p>The value of counter is {{ result() }} than 5.</p>
+</div>
+```
+
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    counter: 0,
+    secCounter: 0
+  },
+  methods: {
+    result: function() {
+      console.log('result() is executed');
+      return this.counter > 5 ? 'greater' : 'less';
+    }
+  }
+}):;
+```
+When you click `Increment` button, the value of `secCounter` will change from 0 to 1. Since the data property has changed, VueJS will automatically re-render the page and the `result()` will be re-rendered also.  
+This is because VueJS doesn't know the dependency relationships of functions in `methods`, which means that even though the increase of `secCounter` does nothing to do with `result()`, it just re-renders as it is said to be. This becomes troublesome when the project becomes bigger because everytime the pages are re-rendered, so do they have to execute unrelated functions over and over.
+
+So in the browser console, you will see:
+
+```
+> result() is executed
+// I clicked the Increment button
+> result() is executed
+```
+
+#### Example 2. How _computed_ work
+
+```html
+<div id="app">
+  <button v-on:click="counter++">Increase</button>
+  <button v-on:click="secCounter++">Increment</button>
+  <p>Counter: {{ counter }}</p>
+  <p>The value of counter is {{ output }} than 5.</p>
+</div>
+```
+
+One of the noticeable change is that you use functions like properties. No `()` needed.
+
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    counter: 0,
+    secCounter: 0
+  },
+  computed: {
+    output: function() {
+      console.log('result() is executed');
+      return this.counter > 5 ? 'greater' : 'less';
+    }
+  }
+}):;
+```
+
+When you click the Increment button, the result of the console window will be like this:
+
+```
+> result() is executed
+// I clicked the Increment button
+```
+
