@@ -287,3 +287,26 @@ You can use _key modifiers_ for key-related events. Key modifiers allows you to 
 * `left`
 * `right`
 
+### 4. v-model
+
+So far, you could either _bind_ the data or _listen_ to the events and get data from _event object._ `v-model` enables both and this is called _Two way binding._ You can simultaneously listen to the event and update data properties together by using `v-model`.
+
+![v-model](https://cloud.githubusercontent.com/assets/19285811/21631155/8c221268-d27b-11e6-8aa2-ed819f59b3b2.jpg)
+
+```html
+<div id="app">
+  <input type="text" v-model="title">
+  <p>{{ title }}</p>
+</div>
+```
+
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    title: 'Default'
+  }
+});
+```
+
+When we execute the above code, at fist, a string data of title—Default— will show. The value changes when you write any thing in the `<p>` element. Not only will `v-model` enable to change the value, but also it updates the property value of data object too.
