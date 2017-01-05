@@ -5,7 +5,7 @@ I am learning VueJS via [Udemy Course](https://www.udemy.com/vuejs-2-the-complet
 2. [Basic structure](## 2. Basic structure)
 3. [Accessing data in Vue instance](## 3. Accessing data in Vue instance)
 4. [Understanding directives](## 4. Understanding directives)
-5. [Other properties](## 5. Other properties)
+5. [Others](## 5. Others)
 
 ## 1. Kickstart VueJS
 
@@ -319,7 +319,9 @@ When we execute the above code, at fist, a string data of title—Default— wil
 
 ### 1. Computed property
 
-Computed property is _dependent property._ It is a property possessing functions used in Vue instance, just like methods, but works completely different from methods. When you use functions definded as a property of computed property, the functions are only executed when it is relevant to them. Let's look at the examples below.
+Computed property is _dependent property._ It is a property possessing functions used in Vue instance, just like methods, but works completely different from methods. When you use functions definded as a property of computed property, the functions are only executed when it is relevant to them, more precisely, when it is dependent to certain data properties.
+
+Let's look at the examples below first and figure out what `computed property` does and when should we use it.
 
 #### Example 1. How _methods_ work
 
@@ -394,3 +396,50 @@ When you click the Increment button, the result of the console window will be li
 // I clicked the Increment button
 ```
 
+To summerize, `computed property` is _synchronous._ When the data property that it is dependent changes, the dependent function should be executed immediately. Unlike `methods`, it only responds to the dependent properties, it makes the application optimal. So it is recommended to use `computed property` instead of `methods` unless you need to execute functions whenever the HTML template page is loaded.
+
+
+### 2. Watch property
+
+`watch` can be said to be alternative to the `computed property` but it is quite different. It is important to differentiate when to use `watch` or `computed property.`. Both are executed when the value of its relevent properties change. However, `watch` is _asynchronous._
+
+#### Example
+
+```html
+<div id="app">
+  <button v-on:click="counter++">Increase</button>
+  <p>Current value: {{ counter }}</p>
+  <p>Result: {{ result }} </p>
+</div>
+```
+
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    counter: 0
+  },
+  computed: {
+    result: function() {
+      return this.counter > 5 ? 'More than 5' : 'Less than 5';
+    }
+  },
+  watch: {
+    result: function(value) {
+      var vm = this;
+      // make a closure for the Vue instance
+      setTimeout(function(){
+        vm.counter = 0;
+      }, 1000);
+    }
+  }
+});
+```
+
+The above code will work like this:
+1. When a user clicks the Increase button, the value of counter goes up.
+2. `result` property is dependent to `counter`, it is constantly executed whenever the value of `counter` changes.
+3. When the counter reaches more than 5, the value of result changes from 'Less than 5' to 'More than 5'.
+4. When the value of result being changed is detected, `watch` executes its callback function.
+
+Well, I have trouble organizing exact concept of both `computed properties` and `watch` and why they are good. It is somewhat fuzzy. Maybe I should do some personal experiment to grasp it.
