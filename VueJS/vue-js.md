@@ -5,7 +5,7 @@ I am learning VueJS via [Udemy Course](https://www.udemy.com/vuejs-2-the-complet
 2. [Basic structure](## 2. Basic structure)
 3. [Accessing data in Vue instance](## 3. Accessing data in Vue instance)
 4. [Understanding directives](## 4. Understanding directives)
-5. [Others](## 5. Others)
+5. [Other properties](## 5. Other properties)
 
 ## 1. Kickstart VueJS
 
@@ -315,7 +315,7 @@ new Vue({
 When we execute the above code, at fist, a string data of title—Default— will show. The value changes when you write any thing in the `<p>` element. Not only will `v-model` enable to change the value, but also it updates the property value of data object too.
 
 
-## 5. Others
+## 5. Other properties
 
 ### 1. Computed property
 
@@ -443,3 +443,126 @@ The above code will work like this:
 4. When the value of result being changed is detected, `watch` executes its callback function.
 
 Well, I have trouble organizing exact concept of both `computed properties` and `watch` and why they are good. It is somewhat fuzzy. Maybe I should do some personal experiment to grasp it.
+
+
+
+## 6. Dynamic styling
+
+There are various ways to change classes for CSS in HTML template using VueJS. Below are examples of how toggling CSS classes works in VueJS.
+
+### 1. Basics
+
+#### 1. Using an object
+```html
+<head>
+  <style>
+    .box { width: 250px; height: 250px; }
+    .red { background-color: #e74c3c; }
+    .green { background-color: #2ecc71; }
+    .blue { background-color: #0066ff; }
+  </style>
+</head>
+<body>
+  <div id="app"> 
+    <div class="box"
+        @click="status = !status"
+        :class="{ 'red': status }"></div>
+  </div>
+</body>
+```
+
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    status: false
+  }
+});
+```
+
+When you click the `.box`, then the color of the box will turn red and if you click again, it will return to its original status. You can give an object `{ 'name-of-class': boolean }` as the value of `v-bind:class`. Even though class attribute has already been declared before, VueJS will automatically consolidate all the classes into a list. So there is no need to worry about `:class` overwriting `box` class.
+
+#### 2. Using an object
+
+```html
+<div id="app">
+  <div class="box blue"
+      @click="status = !status"
+      :class="boxColor"></div>
+</div>
+```
+
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    status: false
+  },
+  computed: {
+    boxColor: function() {
+      return {
+        'red': status,
+        'blue': !status
+      }
+    }
+  }
+});
+```
+
+By default, the box will be blue. However after clicking it, it will turn red because:
+
+1. `status` will be changed from `false` to `true`.
+2. `boxColor` will be executed since the value of `status` property changed and it will return an object `{ 'red': true, 'blue': false }`.
+
+#### 3. Using the name of the variable
+
+```html
+<div id="app">
+  <div class="box"
+      :class="color"></div>
+  <input type="text" v-model="color">
+</div>
+```
+
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    color: ''
+  }
+});
+```
+
+1. When you type either red, blue or green in the input field, the input value will be saved as the value of `color` property in data.
+2. The value of `color` will be binded to `:class` and changes the color of box.
+
+We can mix all of these together with array.
+
+```html
+<div id="app">
+  <div class="box"
+      @click="status = !status"
+      :class="['red', color, boxColor ]"></div>
+  <input type="text" v-model="color">
+</div>
+```
+
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    status: false,
+    color: ''
+  },
+  computed: {
+    boxColor: function() {
+      return {
+        'red': status,
+        'blue': !status
+      };
+    }
+  }
+});
+```
+
+VueJS will render `'red'` as a string data, meaning the actual name of the class, get the value of `color` from data and receive an object from `boxColor`, which is originated from `computed property`.
