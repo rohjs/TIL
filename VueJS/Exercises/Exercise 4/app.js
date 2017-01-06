@@ -1,22 +1,22 @@
 new Vue({
   el: '#exercise',
   data: {
-  	status: false,
+    status: false,
     ghostBtn: 'ghost-btn',
     ghostText: 'ghost-text',
     userClass: '',
     customClass: '',
     customClassStatus: '',
     customStyle: '',
-    progress: 0
+    progress: 0;
   },
   computed: {
-  	switchStatus: function() {
-  		return {
-  			'highlight': this.status,
-  			'shrink': !this.status
-  		};
-  	},
+    switchStatus: function() {
+      return {
+        'highlight': this.status,
+        'shrink': !this.status
+      };
+    },
     customClassResult: function() {
       var class_list = this.customClass.split(' '),
         class_status = this.customClassStatus.split(' '),
@@ -45,10 +45,10 @@ new Vue({
   },
   methods: {
     startEffect: function() {
-    	var vm = this;
-    	setInterval(function(){
-    		vm.status = !vm.status;
-    	}, 1000);
+      var vm = this;
+      setInterval(function(){
+        vm.status = !vm.status;
+      }, 1000);
     },
     startProgress: function() {
       var vm = this;
