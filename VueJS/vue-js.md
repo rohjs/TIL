@@ -7,7 +7,7 @@ I am learning VueJS via [Udemy Course](https://www.udemy.com/vuejs-2-the-complet
 4. [Understanding directives](#4-understanding-directives)
 5. [Other properties](#5-other-properties)
 
-## 1. Kickstart VueJS 
+## 
 #### Basic Example Code
 ```html
 <head>
@@ -15,7 +15,7 @@ I am learning VueJS via [Udemy Course](https://www.udemy.com/vuejs-2-the-complet
   <script src="app.js"></script>
 </head>
 <body>
-  <div id="app">
+  <div id="app">
     <p>{{ title }}</p>
     <p>{{ sayHello() }}</p>
   </div>
