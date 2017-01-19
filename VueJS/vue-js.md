@@ -1,13 +1,13 @@
 # VueJS
 I am learning VueJS via [Udemy Course](https://www.udemy.com/vuejs-2-the-complete-guide/learn/v4/overview). And I am going to write some of the concepts I learned day by day.
 ## Index.  
-1. [Kickstart VueJS](#1-안녕하세요)
+1. [Kickstart VueJS](#kickstart-vuejs)
 2. [Basic structure](#2-basic-structure)
 3. [Accessing data in Vue instance](#3-accessing-data-in-vue-instance)
 4. [Understanding directives](#4-understanding-directives)
 5. [Other properties](#5-other-properties)
 
-## 1. 안녕하세요
+## Kickstart VueJS
 
 #### Basic Example Code
 ```html
