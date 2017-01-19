@@ -7,7 +7,7 @@ I am learning VueJS via [Udemy Course](https://www.udemy.com/vuejs-2-the-complet
 4. [Understanding directives](## 4. Understanding directives)
 5. [Other properties](## 5. Other properties)
 
-## Kickstart VueJS
+## 1. Kickstart VueJS
 
 #### Basic Example Code
 
