@@ -1,19 +1,18 @@
 # VueJS
 I am learning VueJS via [Udemy Course](https://www.udemy.com/vuejs-2-the-complete-guide/learn/v4/overview). And I am going to write some of the concepts I learned day by day.
 ## Index.  
-1. [Kickstart VueJS](#1-kickstart-vuejs)
+1. [Kickstart VueJS](#1-kickstart-vuejs-)
 2. [Basic structure](#2-basic-structure)
 3. [Accessing data in Vue instance](#3-accessing-data-in-vue-instance)
 4. [Understanding directives](#4-understanding-directives)
 5. [Other properties](#5-other-properties)
 
-## 1. Kickstart VueJS
-
+## 1. Kickstart VueJS 
 #### Basic Example Code
 
 ```html
 <head>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="app.js"></script>
 </head>
 <body>
