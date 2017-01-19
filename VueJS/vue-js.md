@@ -567,4 +567,4 @@ new Vue({
 
 VueJS will render `'red'` as a string data, meaning the actual name of the class, get the value of `color` from data and receive an object from `boxColor`, which is originated from `computed property`.
 
-[kickstart]: ## 1. Kickstart VueJS
+[kickstart]: ##-1.-Kickstart-VueJS
