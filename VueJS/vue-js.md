@@ -6,8 +6,7 @@ I am learning VueJS via [Udemy Course](https://www.udemy.com/vuejs-2-the-complet
 3. [Accessing data in Vue instance](#3-accessing-data-in-vue-instance)
 4. [Understanding directives](#4-understanding-directives)
 5. [Other properties](#5-other-properties)
-
-## 
+## 안녕하세요
 #### Basic Example Code
 ```html
 <head>
