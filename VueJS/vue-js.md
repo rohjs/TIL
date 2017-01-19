@@ -1,7 +1,7 @@
 # VueJS
 I am learning VueJS via [Udemy Course](https://www.udemy.com/vuejs-2-the-complete-guide/learn/v4/overview). And I am going to write some of the concepts I learned day by day.
 ## Index.  
-1. [Kickstart VueJS](#1.-Kickstart-VueJS)
+1. [Kickstart VueJS][kickstart]
 2. [Basic structure](## 2. Basic structure)
 3. [Accessing data in Vue instance](## 3. Accessing data in Vue instance)
 4. [Understanding directives](## 4. Understanding directives)
@@ -566,3 +566,5 @@ new Vue({
 ```
 
 VueJS will render `'red'` as a string data, meaning the actual name of the class, get the value of `color` from data and receive an object from `boxColor`, which is originated from `computed property`.
+
+[kickstart]: ## 1. Kickstart VueJS
