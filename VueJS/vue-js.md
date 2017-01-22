@@ -10,14 +10,13 @@ I am learning VueJS via [Udemy Course](https://www.udemy.com/vuejs-2-the-complet
 ## 1. Kickstart VueJS
 
 #### Basic Example Code
-
 ```html
 <head>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="app.js"></script>
 </head>
 <body>
-  <div id="app">
+  <div id="app">
     <p>{{ title }}</p>
     <p>{{ sayHello() }}</p>
   </div>
@@ -28,8 +27,8 @@ The above code is HTML template of a Vue instance that I am going to create belo
 
 ```javascript
 new Vue({
-  el: "#app",
-  data: {
+  el: "#app",
+  data: {
     title: 'Hello VueJS'
   },
   methods: {
