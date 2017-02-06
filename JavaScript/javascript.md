@@ -249,6 +249,24 @@ button.addEventListener( "click", extractFunction );
 In this situation, `this` inside the method function no longer refers to its owner object. The object that invokes the very function is now `button`, so `this` now refers to `button` object.  
 _Note: HTML Elements are objects._
 
+```javascript
+function foo() {
+  console.log(this.a);
+}
+var a = 'You are in global'
+
+var obj = {
+  a: 'You are in obj context',
+  foo: foo
+}
+var anotherObj = obj.foo
+// It loses implicit binding
+// Separation from obj context
+
+obj.foo(); // You are in obj context
+anotherObj(); // You are in global
+```
+
 #### 3) Constructor Invocation
 **Constructor invocation** is performed when a function is used with `new` keyword in front of it. With `new`, function is executed neither in function invocation nor in method invocation, but in constructor invocation. `this` inside the constructor function refers to newly created instance.
 
@@ -267,4 +285,62 @@ console.log(age); // 23
 var boyoon = new Person('boyoon', 23);
 console.log(boyoon.name); // 'boyoon'
 console.log(boyoon.age); // 23
+```
+
+**_Below are not yet organized but I am jotting down some examples that could help me understand "this"_**  
+
+**Understanding Call Stack & Call Site**
+What’s important is to think about the call-stack (the stack of functions that have been called to get us to the current moment in execution). The call-site we care about is in the invocation before the currently executing function.  
+_Cited from **You don't know JS: This & Prototype**_
+
+```javascript
+function baz() {
+  console.log('baz');
+  bar();
+  console.log('baz finished execution');
+}
+function bar() {
+  console.log('bar');
+  foo();
+  console.log('bar finished execution');
+}
+function foo() {
+  console.log('foo');
+}
+
+baz();
+// * RESULT *
+// baz
+// bar
+// foo
+// bar finished execution
+// baz finished execution
+```
+
+```javascript
+function baz() {
+  console.log('baz ', this);
+  bar();
+  console.log('baz finished execution');
+}
+function bar() {
+  console.log('bar ',this );
+  obj.foo();
+  console.log('bar finished execution');
+}
+function foo() {
+  console.log('foo ', this);
+}
+
+var obj = {
+  name: 'obj',
+  foo: foo
+};
+
+baz();
+// baz, Window Object
+// bar, Window Object
+// foo, obj Object { name: 'obj', foo: function(){} }
+// bar finished execution
+// baz finished execution
 ```
