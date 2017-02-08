@@ -344,3 +344,61 @@ baz();
 // bar finished execution
 // baz finished execution
 ```
+
+```javascript
+var obj = {
+  doFunction: function(fn) {
+    fn();
+    this.innerFn();
+    // this ---> obj
+  },
+  innerFn: function() {
+    console.log("Inner Function");
+  }
+};
+```
+##### explicit binding == strong!
+```javascript
+function foo() {
+  console.log(this.a);
+}
+var a = 3;
+var obj = {
+  a: 2
+};
+
+var bar = function() {
+  foo.call(obj);
+};
+
+bar(); // 2
+bar.call(window); // 2
+// bar() manually and forcibly binds obj to foo function (=wrapping)
+// It is impossible to bind other objects with bar()
+```
+
+##### ES 6, arrow function => inherit lexically
+```javascript
+// functions
+function foo() {
+  setTimeout(function() {
+    console.log(this.a);
+  }, 100);
+}
+var a = 'global'
+var obj = { a: 'obj' };
+
+foo(); // 'global'
+foo.call(obj); // 'global'
+
+
+// arrow functions
+function boo() {
+  setTimeout( () => {
+    console.log(this.a);
+  }, 100);
+}
+
+boo(); // 'global'
+boo.call(obj); // 'obj'
+```
