@@ -5,6 +5,7 @@ This document is about the core concept of JavaScript that I've learned by mysel
 1. [Data Types](#1-data-types)
 2. [Object](#2-object)
 3. [This](#3-this)
+4. [Built in Objects and Functions](#4-build-in-objects-and-functions)
 
 ## 1. Data Types
 JavaScript has mainly two types of data. The **primitive data type**, such as _Number, String, Boolean_, are the types that are passed **by value**. The other type is **reference data type** that includes _Array, Object, Function_. These data types are passed **by reference**, meaning it only copies the pointer address and share the same data altogether.
@@ -287,6 +288,144 @@ console.log(boyoon.name); // 'boyoon'
 console.log(boyoon.age); // 23
 ```
 
+### 4. Built in Objects and Functions
+
+JavaScript provides many built in objects and functions like any other languages. Let's take a look at some of the basic examples that are commonly used.
+
+1. Time & Intervals
+2. Transforming Formats & Values
+
+#### 1. Time & Intervals
+
+* `window.setTimeout(fn, time)`
+* `window.setInterval(fn, time)`
+* `window.clearInterval(fn)`
+
+##### setTimeout(fn, time)
+It allows us to execute a certain function(`fn`) after the time you have set(`time`)
+
+```javascript
+// this will be invoked after 2000 milliseconds
+window.setTimeout(function() {
+  console.log(this);
+  console.log('hello');
+}, 2000);
+
+// Window Object
+// hello
+```
+
+##### setInterval(fn, time)
+You can repeat executing a function(`fn`) every milliseconds you have set(`time`).
+
+```javascript
+window.setInterval(function(){
+  console.log('You are awesome, Jiseung!');
+}, 2000);
+
+// You are awesome, Jiseung!
+// You are awesome, Jiseung!
+// You are awesome, Jiseung!
+// ... repeats every 2000 seconds
+```
+
+In order to stop this `setInterval()` function, we use `clearInterval()`.
+
+```javascript
+var fn = function() {
+  console.log('hello');
+};
+var intervals = window.setInterval(fn, 500);
+
+window.setTimeout(function() {
+  clearInterval(intervals);
+}, 2000);
+
+// The function referenced by 'intervals' will be logging 'hello' every 500 seconds.
+// setTimeout function will be fired after 2000 seconds.
+
+// hello    (0)
+// hello    (500)
+// hello    (1000)
+// hello    (1500)
+```
+
+#### Transforming Formats & Values
+
+* `window.parseInt(data, [num_sys])`
+* `window.toString(data)`
+* `window.toFixed(num)`
+
+##### parseInt(data, [num_sys])
+`parseInt()` returns integer value. If you pass an argument specifying number system you want to get, it will transform the format of the number data.
+
+```javascript
+var a = 10.6;
+var b = 11.9999;
+var c = 1039234
+
+a = parseInt(a);
+window.parseInt(b);
+c = parseInt(c, 16);
+
+console.log('a: ' + a + 'and b: ' + b);
+console.log('c: ', c);
+// a: 10 and b: 11.999
+// c: 17011252  -----  hexadecimal value
+```
+
+##### num.toString()
+
+`toString()` is one of the most widely used and useful built in functions provided by JavaScript. It basically returns the value transformed as a string data. But when this function is used with the context of `Object.prototype` and `bind()` method, it can tell us the exact type of the very data you want to examine. This inspection complements the ambiguousity of `typeof` operator.
+
+```javascript
+// Basic Usage
+var num = 10.5;
+var boo = true;
+
+console.log(num.toString());
+console.log(boo.toString());
+// "10.5"
+// "true"
+```
+
+```javascript
+// Type Inspection
+var my_obj = new Object();
+var my_arr = new Array();
+var my_null = null;
+var my_undefined = undefined;
+
+function whatType(data) {
+    return Object.prototype.toString.bind(data).slice(8, -1).toLowerCase();
+}
+
+console.log(typeof my_obj, whatType(my_obj));
+console.log(typeof my_arr, whatType(my_arr));
+console.log(typeof my_null, whatType(my_null));
+console.log(typeof my_undefined, whatType(my_undefined));
+
+// * Result *
+// object, object
+// object, array
+// object, null
+// undefined, undefined
+```
+
+##### toFixed(num)
+
+`window.toFixed()` function returns the rounded value of a number data.
+
+```javascript
+var a = 10.3;
+var b = 10.9999;
+
+console.log(toFixed(a)); // 10
+console.log(toFixed(b)); // 11
+```
+
+
+---
 **_Below are not yet organized but I am jotting down some examples that could help me understand "this"_**  
 
 **Understanding Call Stack & Call Site**
@@ -402,3 +541,34 @@ function boo() {
 boo(); // 'global'
 boo.call(obj); // 'obj'
 ```
+##### Closure
+```javascript
+var generateCounter = function(num) {
+  var counter = num;
+  return function() {
+    console.log(counter--);
+  };
+};
+
+var a = generateCounter(10);
+var b = generateCounter(10);
+
+console.log( a == b );
+// returns false
+
+// when executing generateCounter(), it newly creates a functions and returns.
+// even though var a and b both seem to have same function literal, they are referencing different functions.
+// function == reference
+```
+##### Built-in Function properties & methods
+```javascript
+var checkArguments = function(a, b, c) {
+  console.log('Expected arguments: ', this.length);
+  console.log('Arguments received: ', arguments.length);
+};
+
+checkArguments.bind(checkArguments)(1,2,3,4,5,6);
+// Expected arguments: 3
+// Arguments received: 6
+```
+---
