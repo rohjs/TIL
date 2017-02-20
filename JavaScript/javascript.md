@@ -35,6 +35,32 @@ console.log(a); // Object { name: 'jiseung roh', age: 23 }
 ## 2. Object
 Understanding _Object_ is super important when it comes to JavaScript language. Let's cover the key concept of object step by step.
 
+### 0. A Common Misconception
+It is commonly said that _everything in JavaScript is an object,_ but it is definitely not true. Let's get it straight forward before diving deep into the concept of object.  
+
+First, you have to understand **primitive types**, so called **language types.** These types are the basic types that JavaScript language provides as its primitive data.
+
+**Primitive types**
+* `String`
+* `Number`
+* `Boolean`
+* `Object`
+* `Null`
+* `Undefined`
+
+These language types are **not objects.** However when necessary, these types can be converted to **object subtypes**. Object subtypes are _constructed objects_ created by **built-in functions**.
+
+**Built-in Functions**
+* `String()`
+* `Number()`
+* `Boolean()`
+* `Object()`
+* `Array()`
+* `Date()`
+* `Error()`
+
+For example,   
+
 ### 1. Creating an Object
 There are three ways to create an JavaScript Object.
 1. `{}`
@@ -76,7 +102,7 @@ console.log(roh.name); // 'Jiseung'
 console.log(roh.age); // 23
 ```
 
-### 2. Prototype
+### 2. Prototype Object
 _Prototype_ is JavaScript's way of inheritance. Prototype enables you to access properties that your object does not possess.  
 
 The most important concept of Prototype is **Prototype Chain**. When you try to calling a property or a method that does not belong to the object you are mentioning, JavaScript automatically tries to find the very field from _Prototype_ of the object. It repeats this process, so called _Prototype chaining_ until it finally meets the field that it was looking for.
@@ -572,3 +598,25 @@ checkArguments.bind(checkArguments)(1,2,3,4,5,6);
 // Arguments received: 6
 ```
 ---
+
+##### Shallow Duplication of Object
+```javascript
+// Problem occurs when circular reference happens.
+function myFunction() {
+  console.log("my function");
+}
+myObject = {
+  a: 2
+};
+myArray = [ 1, 2, 3 ];
+
+newObject = {
+  a: 2,
+  b: myFunction,
+  c: myObject,
+  d: myArray
+};
+
+myArray.push(myFunction, newObject);
+
+```
