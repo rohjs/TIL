@@ -136,6 +136,30 @@ boyoon.greet(); // 'Hello, I am Boyoon!'
 `this` keyword is referring to the very object you are calling. In the example above, both `jiseung` and `boyoon` objects get access to its prototype `person` and try to execute `greet()` method.  
 `boyoon` is able to access `this.name` easily because it contains `name` as its own property. `jiseung`, however, is an empty object so that `this` keyword tries to find the `name` field in the _prototype_ of `jiseung`. Since `person`, which is the prototype of `jiseung` contains `name` property, now it can successfully call `greet()` method without reference error.
 
+You can also intentionally stop or limit the range of prototype chain but this is not recommended.
+
+```javascript
+var obj = Object.create(null); // prototype chaining is not available to obj.
+obj.speak = function(msg) { console.log(msg); };
+obj.nationality = 'Korea';
+
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+Person.prototype = obj;
+// obj became the prototype object of Person().
+// Any instance created by Person() constructor can access to properties of obj as its prototype chain.
+
+var jiseung = new Person('jiseung', 23);
+
+console.log(jiseung.name); // jiseung
+console.log(jiseung.age); // 23
+console.log(jiseung.nationality); // Korea
+jiseung.speak('안녕'); // 안녕
+console.log(jiseung.hasOwnProperty('name')); // TypeError: hasOwnProperty is not a function.
+```
+
 ### 3. This
 
 _To be honest, the concept of `this` is still somehow ambiguous to me, so this summary could be changed in the nearest future._
