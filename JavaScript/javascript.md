@@ -160,7 +160,7 @@ jiseung.speak('안녕'); // 안녕
 console.log(jiseung.hasOwnProperty('name')); // TypeError: hasOwnProperty is not a function.
 ```
 
-### 3. This
+## 3. This
 
 _To be honest, the concept of `this` is still somehow ambiguous to me, so this summary could be changed in the nearest future._
 
@@ -398,6 +398,22 @@ window.setTimeout(function() {
 // hello    (500)
 // hello    (1000)
 // hello    (1500)
+```
+
+```javascript
+function generateCounter(num) {
+  var counter = num;
+  // logCounter will be executed
+  // right after executing generateCounter Function,
+  // even though you didn't put any parenthesis to the logCounter.
+  var logCounter = setInterval(function() {
+    console.log(counter--);
+  }, 1000);
+
+  setTimeout(function() {
+    clearInterval(logCounter);
+    }, 1000*num); 
+}
 ```
 
 #### Transforming Formats & Values
@@ -643,4 +659,32 @@ newObject = {
 
 myArray.push(myFunction, newObject);
 
+```
+
+##### Property Descriptor
+```javascript
+var myObj, yourObj;
+myObj   = {};
+yourObj = {};
+
+Object.defineProperty(myObj, 'foo', {
+  value: [1,2,3],
+  writable: false,
+  enumerable: false,
+  configurable: false  
+});
+
+yourObj.boo = myObj.foo; // sharing the same reference object(array)
+
+yourObj.boo.push(4);
+console.log(yourObj.boo); // [1,2,3,4]
+console.log(myObj.foo); // [1,2,3,4]
+
+myObj.foo.push(5);
+console.log(myObj.foo); // [1,2,3,4,5]
+console.log(yourObj.boo); // [1,2,3,4,5]
+
+// If an object has a reference to another object
+// (i.e. array, object, function, etc.)
+// the contents of that object are not affected and remain mutable
 ```
