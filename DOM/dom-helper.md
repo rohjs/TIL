@@ -122,6 +122,16 @@ function isElement(node) {
 }
 ```
 
+#### isDocFrag(node)
+`isDocFrag()` returns _a boolean data_, telling whether the data is a document fragment node.
+
+```javascript
+function isDocFrag(node) {
+    return whatNode(node) === 11;
+}
+```
+
+
 #### makeArray(fake_array)
 `makeArray()` _turns an array-like list into an array data._ This function is particularly useful when you want to use built-in properties and methods that _array_ provides with array-like lists such as _nodeList_.
 
@@ -184,7 +194,7 @@ After finding the elements, you have to manipulate them. **DOM Manipulation** ca
 
 ```javascript
 function append(node, target) {
-    if ( !isElement(node) || !isElement(target) ) { throwError(1); }
+    if ( !isElement(node) || !isElement(target) || !isDocFrag(node) ) { throwError(1); }
     target.appendChild(node);
     return node;
 }
@@ -195,7 +205,7 @@ function append(node, target) {
 
 ```javascript
 function prepend(node, target) {
-    if ( !isElement(node) || !isElement(target) ) { throwError(1); }
+    if ( !isElement(node) || !isElement(target) || !isDocFrag(node) ) { throwError(1); }
     var first_elm = target.nextElementSibling;
     var parent = target.parentNode;
     if ( first_elm ) {
@@ -212,7 +222,7 @@ function prepend(node, target) {
 
 ```javascript
 function before(node, target) {
-    if ( !isElement(node) || !isElement(target) ) { throwError(1); }
+    if ( !isElement(node) || !isElement(target) || !isDocFrag(node) ) { throwError(1); }
     target.parentNode.insertBefore(node);
     return node;
 }
@@ -223,7 +233,7 @@ function before(node, target) {
 
 ```javascript
 function after(node, target) {
-    if ( !isElement(node) || !isElement(target) ) { throwError(1); }
+    if ( !isElement(node) || !isElement(target) || !isDocFrag(node) ) { throwError(1); }
     var next_elm = target.nextElementSibling;
     var parent = target.parentNode;
     if ( next_elm ) {
