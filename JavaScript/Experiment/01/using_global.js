@@ -1,5 +1,4 @@
 /* jiseung.roh (c) 2017.2 */
-
 var lead_self = 'Me: ',
     lead_computer = 'PC: ',
     a_said = [],
@@ -40,36 +39,18 @@ function echo(msg) {
   for ( i=start; i<a_said_length; i++ ) {
     output += a_said[i];
   }
-  $('.chat-echo').html(output);
-  $('.chat-preview').text(msg);
+  var chat_echo = document.querySelector('.chat-echo');
+  chat_echo.innerHTML = output;
 }
 
-
-
-
-function talk(msg) {
-  echo(lead_self + msg);
-}
-
-function replyYesNo() {
-  var msg = Math.random()>.5 ? msg_yes : msg_no;
-  echo(lead_computer + msg);
-}
-
-function replySassy() {
-  var msg = sassy_stuffs[Math.floor(Math.random()*sassy_stuffs.length)];
-  echo(lead_computer + msg);
-}
-
+// 'echo' function using 'document.createElement()'
 function echo(msg) {
   a_said.push(msg);
   var a_said_length = a_said.length;
       chat_echo = document.querySelector('.chat-echo'),
       chat_echo_num = chat_echo.children.length,
-      elm = document.createElement('p'),
-      text = document.createTextNode(a_said[a_said_length - 1]);
-  elm.appendChild(text);
-  console.log(chat_echo, elm);
+      elm = document.createElement('p');
+  elm.innerText = msg;
   if ( chat_echo_num > 6 ) {
     chat_echo.removeChild(chat_echo.firstElementChild);
   }
