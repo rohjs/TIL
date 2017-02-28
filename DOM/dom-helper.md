@@ -25,6 +25,7 @@ This document is a list of DOM helper functions that enables us to script DOM mo
     * `replace`
     * `exchange`
     * `makeElem`
+    * `makeDocFrag`
 
 ## 0. Helpers
 Before we jump right into making DOM helper functions, let's make some of good functions that could help us easily create DOM helpers.
@@ -324,5 +325,19 @@ function makeElem(elem, text, context, method) {
         window[method](elm, context);
     }
     return elm;
+}
+```
+
+#### makeDocFrag(div)
+`makeDocFrag()` creates an document fragment. Document fragment is a light-weight DOM model that is not part of a live DOM and only lives in the memory. Using document fragment for making template is a well-known practice to create elements efficiently.  
+You can give a boolean data to `div` argument. If you pass `true`, the document fragment will possess `<div>` that helps you easily create elements using `innerHTML`. Or else, you will just end up creating a document fragment node.
+
+```javascript
+function makeDocFrag(div) {
+    var docFrag = document.createDocumentFragment();
+    if (div) {
+        docFrag.appendChild(makeElem('div'));
+    }
+    return docFrag;
 }
 ```
