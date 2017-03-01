@@ -157,9 +157,110 @@ var Greeter = React.createClass({
     );
   }
 });
+
 // 2. ADD IT TO DOM
 ReactDOM.render(
   <Greeter />,
   document.getElementById('app')
 );
 ```
+
+리엑트의 컴포넌트를 만들 때 지켜주어야 하는 사항이 몇 가지 있다.
+* `render()` 메소드를 가진다.
+* `render()` 메소드는 반드시 `return`값으로 JSX형태의 HTML코드를 반환한다.
+* 반환하는 HTML코드는 반드시 하나이다. 여러개의 요소를 반환하고 싶으면 하나의 감싸는 요소로 감싼 후 리턴한다.
+* 이름의 시작을 대문자로 하는게 관례고 CamelCase를 따른다.
+* ReactDOM에서 렌더할 때 `<변수명 />` 식으로 작성하여 호출한다.
+
+이렇게 하면 `<div id="app">`의 자식요소로 반환한 HTML코드가 작성된 것을 볼 수 있다.
+
+#### 이런게 도대체 어떻게 가능함? ㅇㅅㅇ
+
+이걸 확인하기 위해 [바벨 사이트](https://babeljs.io/repl)에 들어가서 직접 짠 코드를 대입하면 바벨이 어떤 식으로 코드를 해석하는지 볼 수 있다.
+
+```javascript
+"use strict";
+
+var Greeter = React.createClass({
+  displayName: "Greeter",
+  render: function() {
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(
+        "h1",
+        null,
+        "Hello React"
+      ),
+      React.createElement(
+        "p",
+        null,
+        "My first time making a react app!"
+      )
+    });
+  }
+});
+
+ReactDOM.render(React.createElement(Greeter, null), document.getElementById('app'));
+```
+
+우리가 JSX로 투두둑 쳤던 것이 `React.createElement()`로 일일이 다시 만들어지는 것을 확인할 수 있다. JSX로 쓰는 게 확실히 유지 보수 측면이나 코드 가독서에 더 좋다.
+
+#### props: 컴포넌트에 데이터 값을 전달하자
+
+컴포넌트 내부 요소에 고정된 값이 아니라 어떤 데이터를 주기 위해선 `props`를 사용하면 된다.
+
+먼저 리엑트돔에서 이렇게 컴포넌트 태그 옆에 속성값을 지정해준다. 아래의 예시에 `name`이란 속성에 `Jiseung`이란 값을 담아두었다.
+
+```javascript
+ReactDOM.render(
+  <Greeter name="Jiseung"/>,
+  document.getElementById('app')
+)
+```
+
+그러면 `name`이 마치 비둘기처럼 작용해서 리엑트 컴포넌트에 내부에 자신의 값을 전달해줘야 하는데, 비둘기 역할을 할 name값을 `render()` 내부의 변수 안에 담아둬야 함. `this.props.name` 값을 `var name`에 담아두면 `render()` 내부에서도 해당  값을 참조할 수 있다. 그러려면 `name` 값이 어디에 반영되는지 알려줘야 하는데 `{ name }`을 해당 요소 태그 안에 넣어두면 됌.
+
+```javascript
+var Greeting = React.createClass({
+  var name = this.props.name;
+  render: function() {
+    return (
+      <div>
+        <h1>Hello { name }</h1>
+        <p>My first time making a react app!</p>
+      </div>
+    );
+  }
+});
+```
+
+그리고 해당값이 전해지지 않았을 때 기본적으로 가질 기본값도 설정할 수 있음. 그러려면 `getDefaultProps`메소드도 컴포넌트 내부에 설정해야 함.
+
+```javascript
+var Greeter = React.createClass({
+  getDefaultProps: function() {
+    return {
+      name: 'React',
+      author: 'My'
+    }
+  },
+  render: function() {
+    var name = this.props.name,
+        author = this.props.author;
+    return (
+      <div>
+        <h1>Hello { name }</h1>
+        <p>{ author } first time making a react app!</p>
+      </div>
+    );
+  }
+});
+
+ReactDOM.render(
+  <Greeter name="Jiseung" author="Jiseung's" />,
+  document.getElementById('app')
+);
+```
+
+이렇게 하면 `ReactDOM.render()`를 할때 설사 `name`, `author`의 값이 주어지지 않아도 문제 없이 렌더링이 될 것이다.
