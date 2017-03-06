@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Creational Design Patterns | Singleton</title>
+  <style>
+    * {
+      margin: 0;
+    }
+    .page {
+      position: relative;
+      width: 50%;
+      height: 100vh;
+      background-color: #e0eced;
+    }
+    .circle {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 100px;
+      transform: translate(-50%, -50%);
+      background-color: #0066ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    
+  </div>
+  <script>
+    (function(global){
+      // circleGenerator started
+      var CircleGenerator = (function() {
+        var instance;
+        // init started
+        function init() {
+          var _aCircle = [];
+          function _position(circle, left, top) {
+            circle.style.cssText = 'left: ' + left + 'px; top: ' + top + 'px';
+          }
+          function create(left, top) {
+            var circle = document.createElement('div');
+            circle.setAttribute('class', 'circle');
+            _position(circle, left, top);
+            return circle;
+          }
+          function add(circle, target) {
+            console.log(target);
+            target.appendChild(circle);
+            _aCircle.push(circle);
+          }
+          function index() {
+            return _aCircle.length;
+          }
+
+          return {
+            create: create,
+            index: index,
+            add: add
+          };
+          //return public API
+        }
+        // init finished
+        return {
+          getInstance: function() {
+            if (!instance) {
+              instance = init();
+            }
+            return instance;
+          }
+        };
+      })();
+    // circleGenerator finished
+    var stage = document.querySelector('.page'),
+        body = document.body;
+    stage.addEventListener('click', function(evt) {
+      var cg = CircleGenerator.getInstance();
+      console.log(cg);
+      var circle = cg.create(evt.pageX-25, evt.pageY-25);
+      console.log(circle);
+      cg.add(circle, this);
+    });
+    body.addEventListener('keydown', function(evt) {
+      if (evt.keyCode === 65) {
+        var cg = CircleGenerator.getInstance();
+        var circle = cg.create(Math.floor(Math.random()*600), Math.floor(Math.random()*600));
+        cg.add(circle, this);
+      }
+    });
+    })(window);
+  </script>
+</body>
+</html>
