@@ -168,7 +168,7 @@ ReactDOM.render(
 * `render()` 메소드는 반드시 `return`값으로 JSX형태의 HTML코드를 반환한다.
 * 반환하는 HTML코드는 반드시 하나이다. 여러개의 요소를 반환하고 싶으면 하나의 감싸는 요소로 감싼 후 리턴한다.
 * 이름의 시작을 대문자로 하는게 관례고 CamelCase를 따른다.
-* ReactDOM에서 렌더할 때 `<변수명 />` 식으로 작성하여 호출한다.
+* ReactDOM에서 렌더할 때 `<변수명/>` 식으로 작성하여 호출한다.
 
 이렇게 하면 `<div id="app">`의 자식요소로 반환한 HTML코드가 작성된 것을 볼 수 있다.
 
@@ -256,9 +256,107 @@ var Greeter = React.createClass({
 });
 
 ReactDOM.render(
-  <Greeter name="Jiseung" author="Jiseung's" />,
+  <Greeter name={name} author={author} />,
   document.getElementById('app')
 );
 ```
 
 이렇게 하면 `ReactDOM.render()`를 할때 설사 `name`, `author`의 값이 주어지지 않아도 문제 없이 렌더링이 될 것이다.
+
+## 4. Props & State
+`Props`에는 변하지 않는 데이터를 담아두고  `State`에는 변하는 값을 담아둔다고 한다. 예시를 통해 자세히 살펴보는게 빠를듯.
+
+지금 만들 예제는 `<form>`에 어떠한 값을 전달하며 그것이 `<h1>`에 반영이 되게 하는 녀석이다. 이걸 구현하려면 `Props`만으로는 절대 불가능하다.
+
+```javascript
+var Greeter = React.createClass({
+  getDefaultProps: function() {
+    return {
+      name: 'React'
+    };
+  },
+  render: function() {
+    return (
+      <div>
+        <h1>Hello { name }</h1>
+        <form>
+          <input type="text" />
+          <button>Submit</button>
+        </form>
+      </div>
+    );
+  }
+});
+```
+
+먼저 `form`의 `input`에 담긴 값을 가져오는 작업부터 처리하자. `input`을 작성하고 `button`을 눌렀을 때 이벤트를 발생시켜야 하는데, 그때 `form`에 `onSubmit` 속성을 만들고 `onButtonClick`이란 이벤트 함수를 걸어준다. 그리고 옵션 객체에 `onButtonClick`이란 이벤트 함수를 만들면 됌. 나도 적으면서 이게 무슨 말인지 모르겠지만, 아래의 코드를 보면 이해가 될거임.
+
+```javascript
+var Greeter = React.createClass({
+  getDefaultProps: function() {
+    return {
+      name: 'React'
+    };
+  },
+  onButtonClick: function() {
+    var name = this.refs.name,
+        value = name.value;
+  },
+  render: function() {
+    return (
+      <div>
+        <h1>Hello { name }</h1>
+        <form onSubmit={this.onButtonClick}>
+          <input type="text" ref="name"/>
+          <button>Submit</button>
+        </form>
+      </div>
+    );
+  }
+});
+```
+
+사용자가 버튼을 눌러서 폼을 제출하면 `onButtonClick`이 가리키는 함수가 실행이 될거임.
+
+#### refs? ref? 왓이짓
+눈썰미가 있는 사람은 `input` 태그에 `ref="name"`이란 속성이 추가되어 있는 것을 봤을 거임. 옵션 객체 내에서 HTML 요소 대상을 가리키기 위한 변수라고 `ref`를 생각하면 좋을듯. 한마디로 앞으로 우리는 `input`을 `ref`가 `name`인 녀석으로 부르겠다는 거임.  
+그러니까 `this.refs.name`라고 `onButtonClick`에서 부르면 `render` 함수의 리턴값중 하나인 `input`을 부를 수 있다는 것. ㅇㅇ 인내가 필요하다.
+
+암튼 내가 하고 싶은 것은, 저기에 값이 들어오면 그 값을 `name`값으로 변경해서 화면에 쏘고 싶은데 그럼 이렇게 하면 된다.
+
+```javascript
+getInitialState: function() {
+  return {
+    name: this.props.name
+  };
+},
+onButtonClick: function() {
+  var name = this.refs.name,
+      value = name.value;
+  if ( value ) {
+    name.value = '';
+    this.setState({
+      name: value
+    });
+  }
+},
+render: function() {
+  var name = this.state.name;
+  return (
+    <div>
+      <h1>Hello { name }</h1>
+      <form onSubmit={this.onButtonClick}>
+        <input type="text" ref="name"/>
+        <button>Submit</button>
+      </form>
+    </div>
+  );
+}
+}
+```
+
+* `getInitialState` : 이제 `name`은 `prop`이 아니라 `state`가 될 것이다. 그렇게 하기 위해서 `state` 값을 초기화 시켜주는 작업이라고 생각하면 될듯. 이때 `name: this.props.name`이라고 해놓는 것은 초기값을 `prop`에서 찾겠다는 것  
+_cf. `render`의 `name`변수를 `this.props.name`에서 `this.state.name`로 바꾼 것_
+* `this.setState()` : 값이 상태가 변할 때마다 그 값을 다시 셋하겠다는 거. 이때 전달인자로 객체를 던져야하고, 그 객체에는 변화시기고자 하는 `state`와 변화된 값을 전달하면 된다.
+
+그런데 이런식으로 코드를 짜면 딱봐도 유지관리가 매우 귀찮고 어려워 보임. 그래서 컴포넌트를 좀 나눠볼 필요가 있을 듯 하다.
