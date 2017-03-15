@@ -36,7 +36,7 @@
   global.blue = BlueCircle;
 
   // Singleton
-  var CircleGenerator = function() {
+  var CircleGenerator = (function() {
     var _instance;
     function init() {
       var _circles = [],
@@ -69,7 +69,7 @@
         return _instance;
       }
     }
-  };
+  })();
 
   global.CircleGenerator = CircleGenerator;
 })(window);
@@ -77,7 +77,7 @@
 // Usage
 (function(global){
   'use strict';
-  var cg    = CircleGenerator().getInstance(),
+  var cg    = CircleGenerator.getInstance(),
       page  = document.querySelector('.page'),
       body  = document.body;
 
