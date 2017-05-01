@@ -269,12 +269,12 @@ var obj = {
   doSomething: {
     eatFruits: function() {
       console.log(this);
-      return this.apple, this.banana;
+      return this.fruits.apple;
     }
   }
 };
 
-obj.doSomething.eatFruits.bind(obj);
+obj.doSomething.eatFruits.bind(obj)();
 // now `this` inside eatFruits() refers to obj object
 ```
 
@@ -412,7 +412,7 @@ function generateCounter(num) {
 
   setTimeout(function() {
     clearInterval(logCounter);
-    }, 1000*num); 
+    }, 1000*num);
 }
 ```
 
