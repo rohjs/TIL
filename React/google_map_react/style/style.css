@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.sidebar {
+	width: 25vw;
+	height: 100vh;
+	overflow-y: scroll;
+}
+
+.map,
+.map > div {
+	position: relative !important;
+  width: 75vw !important;
+  height: 100vh;
+}
+
+.pointer {
+	background-color: black;
+	width: 50px;
+	height: 50px;
+	border-radius: 1000px;
+	position: absolute;
+	top: 20px;
+	left: 50px
+}
+
+* {
+	font-family: 'Lato' !important;
+}
