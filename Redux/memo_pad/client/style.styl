@@ -41,7 +41,13 @@ button:hover
   outline: none
   
 .sr-only
-  font-size: 0
+  position: absolute
+  top: 0
+  left: 0
+  width: 1px
+  height: 1px
+  overflow: hidden
+  visibility: hidden
 
 // =Main
 .main
@@ -79,6 +85,7 @@ button:hover
 .post-content 
   display: block
   width: 100%
+  padding: 0
   border: none
   font-family: inherit
   
@@ -87,7 +94,9 @@ button:hover
   outline: none
 
 .post-title
+  margin-bottom: 1rem
   font-size: 1.33rem
+  font-weight: bold
   line-height: 1.35
 
 .post-content
@@ -98,6 +107,7 @@ button:hover
 .post-util
   display: flex
   justify-content: flex-end
+  margin-bottom: 3rem
 
 .btn
   margin-right: 2rem

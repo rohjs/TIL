@@ -12,7 +12,10 @@ class PostView extends Component {
   }
   render() {
   	const { posts, currentPost } = this.props
-  	const post = posts[currentPost]
+  	const post = posts.filter(post => {
+      return post.postId === currentPost
+    })[0]
+   	// 부들부들
     return (
       <article className="post-view">
         <div className="post">
@@ -26,7 +29,7 @@ class PostView extends Component {
         	    onClick={this.handleDelete}>Delete</button>
         	</div>
         	<h1 className="post-title">{post.title}</h1>
-        	<p className="post-text">{post.content}</p>
+        	<p className="post-content">{post.content}</p>
         </div>
       </article>
     );
