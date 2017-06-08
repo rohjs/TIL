@@ -5,7 +5,7 @@ import PostItem from './PostItem'
 class SideBar extends Component {
   renderListItems() {
     return this.props.posts.map( (post, idx) => {
-      return <PostItem key={idx} post={post} idx={idx} selectPost={this.props.selectPost} />
+      return <PostItem key={post.postId} post={post} idx={idx} selectPost={this.props.selectPost} />
     })
   }
   render() {
@@ -15,7 +15,7 @@ class SideBar extends Component {
           <Link
             to="/post/new"
             className="btn btn--green"
-            onClick={() => this.props.currentPost = null }>New</Link>
+            onClick={() => this.props.selectPost(null)}>New</Link>
         </div>
         <ul className="sidebar-list">
           { this.props.posts && this.renderListItems() }
