@@ -9,7 +9,6 @@ const PostItem = ({ post, idx, selectPost }) => {
         onClick={() => selectPost(post.postId)} >
         <h3 className="list-title">{post.title}</h3>
         <p className="list-content">{post.content}</p>
-        <p className="list-loc">{post.lat, post.lng}</p>
       </Link>
     </li>
   )

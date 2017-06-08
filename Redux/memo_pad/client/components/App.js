@@ -10,7 +10,8 @@ function mapStateToProps(state) {
   return {
     posts: state.posts,
     tempLoc: state.tempLoc,
-    currentPost: state.currentPost
+    currentPost: state.currentPost,
+    currentLoc: state.currentLoc
   }
 }
 
