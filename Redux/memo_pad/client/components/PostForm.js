@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router'
 
-// edit이거나 new 이거나 = this.props.location.pathname 을 통해
-// 알 수 있습니다 
 class PostForm extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +8,7 @@ class PostForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.redirect = this.redirect.bind(this)
   }
-  // Edit
+
   componentDidMount() {
     const { posts, currentPost } = this.props
     if ( currentPost !== null ) {
@@ -19,7 +17,7 @@ class PostForm extends Component {
       this.postContent.value = post.content;
     }
   }
-  // New
+
   componentDidUpdate() {
     if ( this.props.currentPost === null ) {
       this.postTitle.value = ''
@@ -28,7 +26,7 @@ class PostForm extends Component {
   }
   handleSubmit(e) {
     e.preventDefault()
-    const { posts, currentPost } = this.props
+    const { posts, currentPost, currentLoc } = this.props
     const post = {
        title: this.postTitle.value,
        content: this.postContent.value
@@ -40,7 +38,7 @@ class PostForm extends Component {
     } else {
       const postId = posts[posts.length - 1].postId + 1
       post.postId = postId
-      this.props.addPost(post)
+      this.props.addPost(post, currentLoc)
       this.props.selectPost(postId)
       this.redirect(postId)
     }
