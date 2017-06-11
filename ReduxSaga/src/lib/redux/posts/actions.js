@@ -1,9 +1,4 @@
-function stringEnum (...args) {
-  return args.reduce((acc, arg) => {
-    acc[arg] = arg
-    return acc
-  }, {})
-}
+import { stringEnum } from '../../helpers'
 
 export const actionTypes = stringEnum(
   'ADD_POST',
