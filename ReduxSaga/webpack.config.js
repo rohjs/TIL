@@ -23,6 +23,11 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        use: ['source-map-loader'],
+        enforce: 'pre'
+      },
+      {
         test: /\.js?$/,
         use: [
           {
@@ -49,7 +54,7 @@ const config = {
   },
   performance: { hints: false },
   node: {},
-  devtool: 'eval',
+  devtool: 'source-map',
   devServer: {
     hot: true,
     port

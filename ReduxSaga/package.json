@@ -25,6 +25,7 @@
     "html-webpack-plugin": "^2.28.0",
     "react-hot-loader": "next",
     "react-redux": "^5.0.5",
+    "source-map-loader": "^0.2.1",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   }
