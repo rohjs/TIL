@@ -1,6 +1,8 @@
+// combine reducers
 import { combineReducers } from 'redux'
-import posts from './posts/reducer'
-import form from './form/reducer'
+// import reducers
+import posts from './posts/reducers'
+import form from './form/reducers'
 
 const rootReducer = combineReducers({
   posts,

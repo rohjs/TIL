@@ -1,18 +1,21 @@
+// import actionTypes
 import { actionTypes } from './actions'
 
+// default Form state
 const initialForm = {
   title: '',
   content: '',
   isSubmitting: false
 }
 
+// form reducer
 const formReducer = (state = initialForm, action) => {
   switch (action.type) {
     case actionTypes.UPDATE_FORM:
       return {
         ...state,
-        title: action.payload.form.title,
-        content: action.payload.form.content
+        title: action.payload.title,
+        content: action.payload.content
       }
     case actionTypes.RESET_FORM:
       return initialForm
@@ -21,8 +24,9 @@ const formReducer = (state = initialForm, action) => {
         ...state,
         isSubmitting: true
       }
+    default:
+      return state
   }
-  return state
 }
 
 export default formReducer

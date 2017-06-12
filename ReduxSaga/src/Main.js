@@ -1,78 +1,76 @@
+// import react
 import React from 'react'
+// import redux
 import { bindActionCreators } from 'redux'
+// import react-redux
 import { connect } from 'react-redux'
-import postActions from './lib/redux/posts/actions'
+// import actions
+import postsActions from './lib/redux/posts/actions'
 import formActions from './lib/redux/form/actions'
 
 class Main extends React.PureComponent {
   onFormChange = () => {
-    this.props.actions.updateForm({
+    this.props.updateForm({
       title: this.title.value,
       content: this.content.value
     })
   }
 
-  onSubmitButtonClick = () => {
-    this.props.actions.submitForm()
+  onButtonClick = () => {
+    this.props.submitForm()
   }
 
   render () {
     const {
       posts,
       form,
-      actions
+      isSubmitting
     } = this.props
 
     return (
       <div>
-        <h1>test</h1>
-        { Object.entries(posts)
-          .map(([postId, post]) => (
-            <div key={postId}>
-              <h3>{post.title}</h3>
-              <p>{post.content}</p>
-            </div>
-          ))
-        }
+        <h2>Test</h2>
         <div>
-          <h2>Form</h2>
-          <div>
-            <div>title</div>
-            <input
-              ref={title => (this.title = title)}
-              value={form.title}
-              onChange={this.onFormChange}
-            />
-          </div>
-          <div>
-            <div>content</div>
-            <textarea
-              ref={content => (this.content = content)}
-              value={form.content}
-              onChange={this.onFormChange}
-            />
-          </div>
-          <div>
-            <button
-              disabled={form.isSubmitting}
-              onClick={this.onSubmitButtonClick}
-            >
-              {form.isSubmitting
-                ? 'Submitting...'
-                : 'Submit'
-              }
-            </button>
-          </div>
+          { Object.entries(posts)
+            .map(([postId, post]) => (
+              <div key={postId}>
+                <h5>{post.title}</h5>
+                <p>{post.content}</p>
+              </div>
+            ))
+          }
         </div>
-
+        <div>
+          <label htmlFor='title'>Title</label>
+          <input
+            type='text'
+            id='title'
+            ref={input => (this.title = input)}
+            value={form.title}
+            onChange={this.onFormChange}
+          />
+          <label htmlFor='content'>Content</label>
+          <textarea
+            id='content'
+            ref={(input => this.content = input)}
+            value={form.content}
+            onChange={this.onFormChange}>
+          </textarea>
+        </div>
+        <button
+          type="submit"
+          onClick={this.onButtonClick}>
+          Submit
+        </button>
       </div>
     )
   }
 }
 
-export default connect(state => state, d => ({
-  actions: {
-    ...bindActionCreators(postActions, d),
+// add props to Main (redux state & action dispatch)
+export default connect(state => state, d => {
+  return {
+    ...bindActionCreators(postsActions, d),
     ...bindActionCreators(formActions, d)
   }
-}))(Main)
+})(Main)

@@ -1,6 +1,4 @@
-import {
-  actionTypes
-} from './actions'
+import { actionTypes } from './actions'
 
 const defaultState = {}
 
@@ -9,19 +7,20 @@ const postsReducer = (state = defaultState, action) => {
     case actionTypes.ADD_POST:
       return {
         ...state,
-        [Date.now()]: action.payload.post
+        [Date.now()]: action.payload
       }
+    case actionTypes.REMOVE_POST:
+      state = {...state}
+      delete state[action.payload.postId]
+      return state
     case actionTypes.UPDATE_POST:
       return {
         ...state,
         [action.payload.postId]: action.payload.post
       }
-    case actionTypes.DELETE_POST:
-      state = {...state}
-      delete state[action.payload.postId]
+    default:
       return state
   }
-  return state
 }
 
 export default postsReducer

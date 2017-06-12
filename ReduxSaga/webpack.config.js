@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const port = 8080
+const port = 8081
 
 const config = {
   entry: [

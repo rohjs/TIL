@@ -1,3 +1,4 @@
+// CREATE ACTIONTYPES & ACTIONS
 import { stringEnum } from '../../helpers'
 
 export const actionTypes = stringEnum(
@@ -6,18 +7,23 @@ export const actionTypes = stringEnum(
   'SUBMIT_FORM'
 )
 
+const initialForm = {
+  title: '',
+  content: '',
+  isSubmitting: false
+}
+
+// action creators
 const actions = {
   updateForm: form => {
     return {
       type: actionTypes.UPDATE_FORM,
-      payload: {
-        form
-      }
+      payload: form
     }
   },
   resetForm: () => {
     return {
-      type: actionTypes.RESET_FORM,
+      type: actionTypes.RESET_FORM
     }
   },
   submitForm: () => {
