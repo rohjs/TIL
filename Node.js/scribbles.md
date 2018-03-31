@@ -50,3 +50,102 @@ http.createServer((req, res) => {
   // 연결 종료 끄읕!
 }).listen(8124)
 ```
+
+## 2. Doing Interesting Stuff
+
+```javascript
+const net = require('net')
+
+const chatServer =  net.createServer()
+
+chatServer.on('connection', (client) => {
+  client.write('Hi!\n')
+  client.end()
+})
+
+chatServer.listen(8124)
+```
+
+```javascript
+const net = require('net')
+
+const chatServer = net.createServer()
+const clientList = []
+
+chatServer.on('connection', (client) => {
+  client.name = client.requestPort
+  clientList.push(client)
+
+  client.on('data', (data) => {
+    clientList.forEach((item, index) => {
+      if (client !== item) {
+        client.write(data)
+      }
+    })
+  })
+})
+
+chatServer.listen(8124)
+```
+
+```javascript
+const net = require('net')
+
+const chatServer = net.createServer()
+const clientList = []
+
+const broadcast = (msg, currentClient) => {
+  clientList.forEach((client, index) => {
+    if (currentClient !== client) {
+      client.write(data)
+    }
+  })
+}
+
+chatServer.on('connection', (client) => {
+  client.name =  `${client.remoteAddress}:${client.remotePort}`
+  clientList.push(client)
+
+  client.on('data', (data) => {
+    broadcast(data, client)
+  })
+
+  client.on('end', () => {
+    clientList.splice(clientList.indexOf(client), 1)
+  })
+})
+```
+
+```javascript
+const net = require('net')
+const chatServer = net.createServer()
+const clientList = []
+
+const broadcast = (msg, currentClient) => {
+  const cleanup = []
+  clientList.forEach((client, index) => {
+    if (!client.writable) {
+      cleanup.push(client)
+      client.destroy()
+    } else {
+      if (client !== currentClient) {
+        client.write(msg)
+      }
+    }
+  })
+
+  cleanup.forEach((item, index) => {
+    clientList.splice(clientList.indexOf(item), 1)
+  })
+}
+
+chatServer.on('connection', (client) => {
+  client.name = `${client.remoteAddress}:${client.remotePort}`
+  clientList.push(client)
+
+  client.on('data', (data) => {
+    broadcast(data, client)
+  }) 
+})
+```
+
